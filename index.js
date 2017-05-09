@@ -105,6 +105,12 @@ function geocodeAddress(destination, geocoder, resultsMap) {
     position: localAirport
   });
 
+function toCelsius(kelvin) {
+	var celsius = kelvin - 273.15;
+
+	return celsius;
+}
+
   geocoder.geocode({'address': address}, function(results, status) {
     if (status === 'OK') {
       var destinationAirport = results[0].geometry.location;
@@ -116,7 +122,9 @@ function geocodeAddress(destination, geocoder, resultsMap) {
           'dataType': 'json',
           success: function(response) {
             //console.log(address + ': ' + response.main.temp);
-            console.log(address + ': ' + response.main.temp);
+            var celsius = toCelsius(response.main.temp);
+            alert(	address + '\nTemperature: ' + celsius + 
+            		' °C \nWind Speed: ' + response.wind.speed + ' km/h');
           }
         });
 
