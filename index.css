@@ -1,0 +1,42 @@
+#map {
+  height: 60%;
+}
+
+#content {
+  height: 40%;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(1) {
+  background-color: #DDD !important;
+}
+
+tr:nth-child(odd) {
+  background-color: #dddddd;
+}
+
+tr:hover {
+  background-color: #CCC;
+}
+
+tr:active {
+  background-color: lightblue;
+}

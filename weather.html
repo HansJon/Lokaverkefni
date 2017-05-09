@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script
+src="https://code.jquery.com/jquery-3.2.1.min.js"
+integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
+<script type="text/javascript">
+$.ajax({
+  'url': 'http://apis.is/car',
+  'type': 'GET',
+  'dataType': 'json',
+  'data': {'number': 'PS883'},
+  'success': function(response) {
+    console.log(response);
+  }
+});
+</script>
+
+</body>
+</html>

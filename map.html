@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flight Path</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous">
+    </script>
+    
+    <link rel="stylesheet" type="text/css" href="index.css">
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="content">
+      <table id="flight-data">
+        <tr id="table-data">
+          <th>Áfangastaður</th>
+          <th>Flugfélag</th>
+          <th>Dagsetning</th>
+          <th>Flugnúmer</th>
+          <th>Áætluð koma</th>
+          <th>Raun koma</th>
+        </tr>
+
+      </table>
+    </div>
+
+    <script type="text/javascript" src="index.js"></script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcHM_F_Zr4Uvi-WTJkpCEjON3mZiQDEU0&callback=initMap">
+    </script>
+  </body>
+</html>
