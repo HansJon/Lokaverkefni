@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Image Optical Recognition - Cognitivation</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+</head>
+<body>
+	<input type="file" id="fileID"></input>
+
+	<button id="send">Send image</button>
+
+	<h1>RESPONSE</h1>
+	<p id="response"></p>
+
+	<h1>EMOTION</h1>
+	<div id="emotionContainer">
+		
+	</div>
+
+	<h1>Image</h1>
+	<div id="faces">
+		<img id="output"/>
+	</div>
+
+	<script type="text/javascript">
+		var api = "https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize";
+		var key = "f42c6e3015254185b2d90fe470e33b8d";
+
+		// Preview Image
+		$("#fileID").change(function(event) {
+			var output = document.getElementById('output');
+
+			output.src = URL.createObjectURL(event.target.files[0]);
+		});
+
+		$("#send").click(sendFile);
+
+		function sendFile() {
+			$("#response").text("Loading...");
+
+			//var file = document.getElementById('fileID').files[0]; // LEGACY
+			var file = $("#fileID").prop('files')[0];
+
+			$(function() {
+				$.ajax({
+					url: api,
+					
+					beforeSend: function(xhrObj) {
+						xhrObj.setRequestHeader("Content-Type", "application/octet-stream");
+						xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", key);
+				},
+				type: "POST",
+				data: file,
+				processData: false
+				})
+				.done(function(response) {
+					outputResult(response);
+				})
+				.fail(function() {
+					$("#response").text(error.getAllRequestHeaders());
+				});
+			});
+		}
+
+		function outputResult(response) {
+			var data = JSON.stringify(response);
+			$("#response").text(data);
+
+			console.log(response);
+
+			for (var i = 0; i < response.length; i++) {
+				// Append a face frame for every face in the picture
+				$("#faces").append('<div id="' + i + '" class="face"><p>' + i + '</p></div>');
+
+				// Dirty selector
+				$face = $("#" + i);
+
+				// CSS styling
+				$face.css("top", response[i].faceRectangle.top);
+				$face.css("left", response[i].faceRectangle.left);
+				$face.css("width", response[i].faceRectangle.width + "px");
+				$face.css("height", response[i].faceRectangle.height + "px");
+
+				$("#emotionContainer").append("<p>" + i + ": " + JSON.stringify(response[i].scores) + "<p>");
+			};
+		}
+	</script>
+
+	<style type="text/css">
+		#faces {
+			position: relative;
+		}
+
+		#faces p {
+			text-align: center;
+			font-size: 1.2em;
+		}
+
+		.face {
+			position: absolute;
+			border: 2px dotted black;
+		}
+	</style>
+</body>
+</html>
