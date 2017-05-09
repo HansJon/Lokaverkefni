@@ -88,6 +88,7 @@ function initMap() {
 
   var geocoder = new google.maps.Geocoder();
 
+  // Table click event handler
   $(document).on("click", "#flight-data tr", function(e) {
     geocodeAddress(this.id, geocoder, map);
   });
@@ -105,12 +106,14 @@ function geocodeAddress(destination, geocoder, resultsMap) {
     position: localAirport
   });
 
+// Convert Kelvin to Celsius
 function toCelsius(kelvin) {
 	var celsius = kelvin - 273.15;
 
 	return celsius;
 }
 
+// GEOCODE Location of table-listed city, get weather report and mark it on the map with an info window
   geocoder.geocode({'address': address}, function(results, status) {
     if (status === 'OK') {
       var destinationAirport = results[0].geometry.location;
@@ -121,10 +124,12 @@ function toCelsius(kelvin) {
           'type': 'GET',
           'dataType': 'json',
           success: function(response) {
-            //console.log(address + ': ' + response.main.temp);
             var celsius = toCelsius(response.main.temp);
-            alert(	address + '\nTemperature: ' + celsius + 
-            		' °C \nWind Speed: ' + response.wind.speed + ' km/h');
+            var wind = response.wind.speed;
+
+            console.log(address + ', Temperature: ' + celsius + ' °C, Wind Speed: ' + wind + ' km/h');
+            /*alert(	address + '\nTemperature: ' + celsius + 
+            		' °C \nWind Speed: ' + wind + ' km/h');*/
           }
         });
 
