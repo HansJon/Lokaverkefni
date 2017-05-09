@@ -133,27 +133,33 @@ function toCelsius(kelvin) {
           }
         });
 
+      // Content of InfoWindow
       var contentString = address;
 
+      // Create InfoWindow
       var infowindow = new google.maps.InfoWindow({
         content: contentString
       });
 
+      // Marker for destination
       var markerDestinationAirport = new google.maps.Marker({
         map: resultsMap,
         position: destinationAirport,
         title: address
       });
 
+      // Click event listener
       markerDestinationAirport.addListener('click', function() {
         infowindow.open(resultsMap, markerDestinationAirport);
       });
 
-
+      // Flight Path Coordinates Curve
       var flightPlanCoordinates = [
         localAirport,
         destinationAirport
       ];
+
+      // Draw Fight Path On Map
       var flightPath = new google.maps.Polyline({
         path: flightPlanCoordinates,
         geodesic: true,
